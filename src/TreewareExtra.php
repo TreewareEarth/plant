@@ -2,7 +2,7 @@
 
 namespace ostark\Plant;
 
-class Treeware
+class TreewareExtra
 {
     const BASE_URL = "https://plant.treeware.earth";
 
