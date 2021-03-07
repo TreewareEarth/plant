@@ -5,10 +5,14 @@ namespace ostark\Plant;
 use Composer\Composer;
 use Composer\EventDispatcher\EventSubscriberInterface;
 use Composer\IO\IOInterface;
+use Composer\Plugin\Capability\CommandProvider;
+use Composer\Plugin\Capable;
 use Composer\Plugin\PluginInterface;
 use Composer\Script\ScriptEvents;
+use ostark\Plant\Command\Provider;
+use Symfony\Component\Console\Input\ArgvInput;
 
-class Plugin implements PluginInterface, EventSubscriberInterface
+class Plugin implements PluginInterface, EventSubscriberInterface, Capable
 {
     /**
      * @var Composer
@@ -37,6 +41,13 @@ class Plugin implements PluginInterface, EventSubscriberInterface
         ];
     }
 
+    public function getCapabilities()
+    {
+        return [
+            CommandProvider::class => Provider::class,
+        ];
+    }
+
     /**
      * Initialize Composer plugin
      */
@@ -57,22 +68,40 @@ class Plugin implements PluginInterface, EventSubscriberInterface
     }
 
 
-    public function showBanner()
+    public function showBanner(): void
     {
-        $repo = $this->packageRepo ?: new PackageRepo($this->composer);
-        $packages = $repo->getTreeware();
+        $filter   = $this->getFilteredPackages();
+        $repo     = $this->packageRepo ?: new PackageRepo($this->composer);
+        $packages = $repo->getTreewareMeta();
+        $count    = count($packages);
 
-        if ($packages) {
+        // No treeware packages
+        if (0 === $count) {
+            return;
+        }
 
-            foreach ($packages as $package) {
+        // No filter, full update: tiny hint
+        if (0 === count($filter)) {
+            $this->io->write(PHP_EOL);
+            $this->io->write("🌳 <options=bold>{$count} packages you are using with a Treeware licence</>");
+            $this->io->write("🌳 use the `composer treeware` command to find out more!");
+            return;
+        }
 
-                $headline = "<options=bold>Treeware licence of {$package->name} - {$package->description}</>";
+        // update/require: full info
+        foreach ($packages as $package) {
+
+            if (in_array($package->name, $filter)) {
+
+                $headline  = "<options=bold>Treeware licence of {$package->name} - {$package->description}</>";
                 $underline = str_repeat('-', strlen($headline));
                 $this->io->write(PHP_EOL);
                 $this->io->write("🌳 $headline");
                 $this->io->write("🌳 $underline");
-                $this->io->write("🌳 The author of this open-source software cares about the climate crisis.");
-                $this->io->write("🌳 Using the software in a commercial project requires a donation:");
+
+                foreach ($package->teaser as $line) {
+                    $this->io->write("🌳 $line");
+                }
 
                 foreach ($package->prices as $key => $price) {
                     $this->io->write("🌳 ⤑ $price ($key)");
@@ -80,6 +109,32 @@ class Plugin implements PluginInterface, EventSubscriberInterface
 
                 $this->io->write("🌳 Donate using this link: <options=underscore>{$package->url}</>" . PHP_EOL);
             }
+
         }
     }
+
+    /**
+     * A list of packages passed to the require or update command
+     * If the list is empty, no filter was applied (full update)
+     */
+    private function getFilteredPackages(): array
+    {
+        foreach (debug_backtrace() as $trace) {
+            if (!isset($trace['object']) || !isset($trace['args'][0])) {
+                continue;
+            }
+
+            if (!$trace['args'][0] instanceof ArgvInput) {
+                continue;
+            }
+
+            /** @var ArgvInput $input */
+            $input = $trace['args'][0];
+
+            return $input->getArgument('packages');
+        }
+
+        return [];
+    }
+
 }

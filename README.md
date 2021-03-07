@@ -12,6 +12,10 @@ Add to your package composer.json
 {
     "extra": {
         "treeware": {
+            "teaser": [
+              "Your message to the users of your package to convince them.",
+              "Multiple lines are possible, but make sure to keep it briefly."
+            ],
             "prices": {
               "useful": "$15",
               "important": "$50",

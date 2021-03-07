@@ -21,7 +21,7 @@ class PackageRepo
     /**
      * @return \ostark\Plant\TreewareExtra[]
      */
-    public function getTreeware()
+    public function getTreewareMeta()
     {
         $packages = [];
 
@@ -30,11 +30,11 @@ class PackageRepo
             $extra = $package->getExtra();
 
             if (isset($extra['treeware'])) {
-
                 $packages[] = new TreewareExtra(
                     $package->getName(),
-                    $package->getDescription() ,
-                    $extra['treeware']['prices'] ?? null
+                    $package->getDescription(),
+                    $extra['treeware']['prices'] ?? [],
+                    $extra['treeware']['teaser'] ?? []
                 );
             }
         }
