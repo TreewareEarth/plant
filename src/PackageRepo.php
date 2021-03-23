@@ -1,6 +1,6 @@
 <?php
 
-namespace ostark\Plant;
+namespace Treeware\Plant;
 
 
 use Composer\Composer;
@@ -19,7 +19,7 @@ class PackageRepo
     }
 
     /**
-     * @return \ostark\Plant\TreewareExtra[]
+     * @return \Treeware\Plant\TreewareExtra[]
      */
     public function getTreewareMeta()
     {

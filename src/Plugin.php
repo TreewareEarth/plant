@@ -1,6 +1,6 @@
 <?php
 
-namespace ostark\Plant;
+namespace Treeware\Plant;
 
 use Composer\Composer;
 use Composer\EventDispatcher\EventSubscriberInterface;
@@ -9,7 +9,7 @@ use Composer\Plugin\Capability\CommandProvider;
 use Composer\Plugin\Capable;
 use Composer\Plugin\PluginInterface;
 use Composer\Script\ScriptEvents;
-use ostark\Plant\Command\Provider;
+use Treeware\Plant\Command\Provider;
 use Symfony\Component\Console\Input\ArgvInput;
 
 class Plugin implements PluginInterface, EventSubscriberInterface, Capable
@@ -25,7 +25,7 @@ class Plugin implements PluginInterface, EventSubscriberInterface, Capable
     protected $io;
 
     /**
-     * @var \ostark\Plant\PackageRepo
+     * @var \Treeware\Plant\PackageRepo
      */
     protected $packageRepo;
 

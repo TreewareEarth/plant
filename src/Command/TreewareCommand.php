@@ -1,15 +1,14 @@
 <?php
 
-namespace ostark\Plant\Command;
+namespace Treeware\Plant\Command;
 
 use Composer\Command\BaseCommand;
-use ostark\Plant\PackageRepo;
+use Treeware\Plant\PackageRepo;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 class TreewareCommand extends BaseCommand
 {
-
 
     protected function configure()
     {

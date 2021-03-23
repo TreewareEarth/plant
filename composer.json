@@ -1,5 +1,5 @@
 {
-  "name": "ostark/plant",
+  "name": "treeware/plant",
   "type": "composer-plugin",
   "require": {
     "composer-plugin-api": "^1.0|^2.0"
@@ -10,10 +10,10 @@
   },
   "autoload": {
     "psr-4": {
-      "ostark\\Plant\\": "src/"
+      "Treeware\\Plant\\": "src/"
     }
   },
   "extra": {
-    "class": "ostark\\Plant\\Plugin"
+    "class": "Treeware\\Plant\\Plugin"
   }
 }

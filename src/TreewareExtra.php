@@ -1,6 +1,6 @@
 <?php
 
-namespace ostark\Plant;
+namespace Treeware\Plant;
 
 class TreewareExtra
 {

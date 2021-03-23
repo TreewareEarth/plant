@@ -4,7 +4,7 @@ Install
 
 Install this as any other (dev) Composer package:
 ```sh
-$ composer require --dev ostark/plant
+$ composer require --dev treeware/plant
 ```
 
 Add to your package composer.json
