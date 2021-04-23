@@ -3,6 +3,14 @@
 ⚡️ This package is not ready to use. 
 
 
+# What is this?
+
+It's a bit like https://github.com/symfony/thanks, but it tries to solve a bigger problem! **The climate crisis.** 
+
+Open Source can have positve impact on it. With treeware every donation it a motivation to work on Open Source code. 
+
+The treeware idea is great, but it's not very visible. This package tries to solve it.
+
 
 Install
 ---
@@ -35,7 +43,7 @@ Example
 
 ---
 
-When others install or update your page using composer, a tiny reminder pops up.
+When others install or update your package using composer, a tiny reminder pops up.
 
 ```sh
 
