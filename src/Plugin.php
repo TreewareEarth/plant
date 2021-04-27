@@ -33,17 +33,18 @@ class Plugin implements PluginInterface, EventSubscriberInterface, Capable
 
     /**
      * Register Composer events
-     *
-     * @return array
      */
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [
             ScriptEvents::POST_UPDATE_CMD => 'showBanner',
         ];
     }
 
-    public function getCapabilities()
+    /**
+     * Register treeware command with composer
+     */
+    public function getCapabilities(): array
     {
         return [
             CommandProvider::class => Provider::class,
@@ -59,12 +60,12 @@ class Plugin implements PluginInterface, EventSubscriberInterface, Capable
         $this->io = $io;
     }
 
-    public function deactivate(Composer $composer, IOInterface $io)
+    public function deactivate(Composer $composer, IOInterface $io): void
     {
         // Not implemented
     }
 
-    public function uninstall(Composer $composer, IOInterface $io)
+    public function uninstall(Composer $composer, IOInterface $io): void
     {
         // Not implemented
     }
@@ -76,18 +77,23 @@ class Plugin implements PluginInterface, EventSubscriberInterface, Capable
         $packages = $repo->getTreewareMeta();
         $count = count($packages);
 
+        // No human
+        if (! $this->io->isInteractive()) {
+            return;
+        }
+
         // No treeware packages
         if ($count === 0) {
             return;
         }
 
-        // No filter, full update: tiny hint
+        // Full update: show summary
         if (count($filter) === 0) {
             (new Summary($this->io))->show($count);
             return;
         }
 
-        // update/require: full info
+        // Filtered package(s): show full info
         foreach ($packages as $package) {
             if (in_array($package->name, $filter, true)) {
                 (new SinglePackage($this->io, $package))->show();
