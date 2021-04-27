@@ -3,7 +3,7 @@
 namespace Treeware\Plant\Output;
 
 use Composer\IO\IOInterface;
-use Treeware\Plant\TreewareExtra;
+use Treeware\Plant\Package;
 
 class SinglePackage
 {
@@ -13,11 +13,11 @@ class SinglePackage
     protected $io;
 
     /**
-     * @var \Treeware\Plant\TreewareExtra
+     * @var \Treeware\Plant\Package
      */
     protected $extra;
 
-    public function __construct(IOInterface $io, TreewareExtra $extra)
+    public function __construct(IOInterface $io, Package $extra)
     {
         $this->io = $io;
         $this->extra = $extra;

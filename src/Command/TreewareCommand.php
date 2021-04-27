@@ -6,18 +6,18 @@ use Composer\Command\BaseCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Treeware\Plant\Output\PackageList;
 use Treeware\Plant\PackageRepo;
+use Treeware\Plant\PackageStatsClient;
 
 class TreewareCommand extends BaseCommand
 {
     public function execute(InputInterface $input, OutputInterface $output): int
     {
-        $repo = new PackageRepo($this->getComposer());
-        $packages = $repo->getTreewareMeta();
+        $repo = new PackageRepo($this->getComposer(), new PackageStatsClient());
+        $packages = $repo->getTreewareWithStats();
 
-        foreach ($packages as $package) {
-            $output->writeln("🌳 ⤑ {$package->description}: {$package->url}");
-        }
+        (new PackageList($output, $packages))->show();
 
         return Command::SUCCESS;
     }

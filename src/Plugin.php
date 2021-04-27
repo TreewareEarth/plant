@@ -73,8 +73,8 @@ class Plugin implements PluginInterface, EventSubscriberInterface, Capable
     public function showBanner(): void
     {
         $filter = $this->getFilteredPackages();
-        $repo = $this->packageRepo ?? new PackageRepo($this->composer);
-        $packages = $repo->getTreewareMeta();
+        $repo = $this->packageRepo ?? new PackageRepo($this->composer, new PackageStatsClient());
+        $packages = $repo->getTreeware();
         $count = count($packages);
 
         // No human

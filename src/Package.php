@@ -2,7 +2,7 @@
 
 namespace Treeware\Plant;
 
-class TreewareExtra
+class Package
 {
     public const BASE_URL = 'https://plant.treeware.earth';
 
@@ -44,6 +44,11 @@ class TreewareExtra
      */
     public $teaser;
 
+    /**
+     * @var int|null
+     */
+    public $treeCount = null;
+
     public function __construct(
         string $name,
         string $description,
@@ -57,6 +62,12 @@ class TreewareExtra
         $this->assignTeaser($teaser);
     }
 
+    public function setTreeCount(int $trees): self
+    {
+        $this->treeCount = $trees;
+        return $this;
+    }
+
     private function assignPriceGroups($priceGroups = []): void
     {
         if (count($priceGroups) === 0) {
@@ -66,7 +77,7 @@ class TreewareExtra
         foreach ($priceGroups as $group => $trees) {
             // Avoid stupid input
             if (is_int($trees) && strlen($group) < 15) {
-                $usd                       = round($trees * self::USD_PER_TREE);
+                $usd = round($trees * self::USD_PER_TREE);
                 $this->priceGroups[$group] = sprintf('%d trees ≈ $%d', $trees, $usd);
             }
         }

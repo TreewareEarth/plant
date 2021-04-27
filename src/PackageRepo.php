@@ -12,15 +12,21 @@ class PackageRepo
      */
     protected $repo;
 
-    public function __construct(Composer $composer)
+    /**
+     * @var \Treeware\Plant\PackageStatsClient
+     */
+    protected $client;
+
+    public function __construct(Composer $composer, PackageStatsClient $client)
     {
         $this->repo = $composer->getRepositoryManager()->getLocalRepository();
+        $this->client = $client;
     }
 
     /**
-     * @return \Treeware\Plant\TreewareExtra[]
+     * @return \Treeware\Plant\Package[]
      */
-    public function getTreewareMeta()
+    public function getTreeware()
     {
         $treeware = [];
 
@@ -31,7 +37,7 @@ class PackageRepo
             $extra = $package->getExtra();
 
             if (isset($extra['treeware'])) {
-                $treeware[] = new TreewareExtra(
+                $treeware[] = new Package(
                     $package->getName(),
                     $package->getDescription(),
                     $extra['treeware']['priceGroups'] ?? [],
@@ -41,5 +47,19 @@ class PackageRepo
         }
 
         return $treeware;
+    }
+
+    /**
+     * @return \Treeware\Plant\Package[]
+     */
+    public function getTreewareWithStats(): array
+    {
+        $packages = $this->getTreeware();
+
+        foreach ($packages as $package) {
+            $package->setTreeCount($this->client->getTreeCount($package->name));
+        }
+
+        return $packages;
     }
 }
