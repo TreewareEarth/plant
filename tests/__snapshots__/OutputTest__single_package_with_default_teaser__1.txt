@@ -4,8 +4,8 @@
 🌳 -------------------------------------------------------------------------
 🌳 The author of this open-source software cares about the climate crisis.
 🌳 Using the software in a commercial project requires a donation:
-🌳 ⤑ $10 (useful)
-🌳 ⤑ $50 (important)
-🌳 ⤑ $150 (critical)
+🌳 ⤑ 100 trees ≈ $17 (useful)
+🌳 ⤑ 250 trees ≈ $42 (important)
+🌳 ⤑ 500 trees ≈ $84 (critical)
 🌳 Donate using this link: https://plant.treeware.earth/tester/toolbox
 

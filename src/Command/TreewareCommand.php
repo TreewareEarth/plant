@@ -10,13 +10,7 @@ use Treeware\Plant\PackageRepo;
 
 class TreewareCommand extends BaseCommand
 {
-    protected function configure(): void
-    {
-        $this->setName('treeware');
-        $this->setDescription('List treeware packages.');
-    }
-
-    protected function execute(InputInterface $input, OutputInterface $output): int
+    public function execute(InputInterface $input, OutputInterface $output): int
     {
         $repo = new PackageRepo($this->getComposer());
         $packages = $repo->getTreewareMeta();
@@ -26,5 +20,11 @@ class TreewareCommand extends BaseCommand
         }
 
         return Command::SUCCESS;
+    }
+
+    protected function configure(): void
+    {
+        $this->setName('treeware');
+        $this->setDescription('List installed Treeware packages.');
     }
 }

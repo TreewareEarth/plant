@@ -5,11 +5,11 @@
 
 # What is this?
 
-It's a bit like https://github.com/symfony/thanks, but it tries to solve a bigger problem! **The climate crisis.** 
+It's a bit like https://github.com/symfony/thanks, but it tries to tackle a bigger problem! **The climate crisis.** 
 
-Open Source can have positve impact on it. With treeware every donation is a motivation to work on Open Source code. 
+Open Source can have positive impact on it. With Treeware every donation is a motivation to work on Open Source code. 
 
-The treeware idea is great, but it's not very visible. This package tries to solve it.
+The Treeware idea is great, but it's not very visible. This package tries to solve it.
 
 
 Install
@@ -20,26 +20,39 @@ Install this as any other (dev) Composer package:
 $ composer require --dev treeware/plant
 ```
 
-Add to your package composer.json
+Add an `extra` attribute to your package composer.json that contains at least an empty `treeware` object:
+
+A empty treeware extra object 
+```json
+{
+    "extra": {
+        "treeware": {}
+    }
+}
+```
+
+To change the default output, add your own `teaser` and `priceGroup`:
 ```json
 {
     "extra": {
         "treeware": {
             "teaser": [
-              "Your message to the users of your package to convince them.",
-              "Multiple lines are possible, but make sure to keep it briefly."
+              "Your message to the consumers of your package to convince them.",
+              "Multiple lines are possible, but not more than 3 lines and 200 characters."
             ],
-            "prices": {
-              "useful": "$15",
-              "important": "$50",
-              "critical": "$150"
+            "priceGroups": {
+              "useful": 100,
+              "important": 250,
+              "critical": 500
             } 
         }
     }
 }
 ```
 
-Example
+
+
+## Example
 
 ---
 
@@ -47,24 +60,24 @@ When others install or update your package using composer, a tiny reminder pops 
 
 ```sh
 
-$ composer require xxx/untitled2
+$ composer require this/fancy-package
 
-Using version dev-master for xxx/untitled2
+Using version dev-master for this/fancy-package
 ./composer.json has been updated
-Running composer update xxx/untitled2
+Running composer update this/fancy-package
 Loading composer repositories with package information
 Updating dependencies
 Generating autoload files
 
 
-🌳 Treeware licence of xxx/untitled2 - A cool package
+🌳 Treeware licence of this/fancy-package - A cool package
 🌳 -------------------------------------------------------------------
 🌳 The author of this open-source software cares about the climate crisis.
 🌳 Using the software in a commercial project requires a donation:
-🌳 ⤑ $5 (useful)
-🌳 ⤑ $25 (important)
-🌳 ⤑ $75 (critical)
-🌳 Donate using this link: https://plant.treeware.earth/xxx/untitled2
+🌳 ⤑ 100 trees ≈ $17 (useful)
+🌳 ⤑ 250 trees ≈ $42 (important)
+🌳 ⤑ 500 trees ≈ $84 (critical)
+🌳 Donate using this link: https://plant.treeware.earth/this/fancy-package
 
 
 ```

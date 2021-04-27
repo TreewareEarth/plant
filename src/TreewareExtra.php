@@ -6,10 +6,12 @@ class TreewareExtra
 {
     public const BASE_URL = 'https://plant.treeware.earth';
 
+    public const USD_PER_TREE = 0.168;
+
     public const PRICE_DEFAULTS = [
-        'useful' => '$10',
-        'important' => '$50',
-        'critical' => '$150',
+        'useful' => 100,
+        'important' => 250,
+        'critical' => 500,
     ];
 
     public const TEASER_DEFAULT = [
@@ -35,7 +37,7 @@ class TreewareExtra
     /**
      * @var array
      */
-    public $prices;
+    public $priceGroups;
 
     /**
      * @var array
@@ -45,13 +47,41 @@ class TreewareExtra
     public function __construct(
         string $name,
         string $description,
-        array $prices = [],
+        array $priceGroups = [],
         array $teaser = []
     ) {
         $this->name = $name;
-        $this->prices = count($prices) ? $prices : self::PRICE_DEFAULTS;
-        $this->teaser = count($teaser) ? $teaser : self::TEASER_DEFAULT;
         $this->description = $description;
         $this->url = sprintf('%s/%s', self::BASE_URL, $name);
+        $this->assignPriceGroups($priceGroups);
+        $this->assignTeaser($teaser);
+    }
+
+    private function assignPriceGroups($priceGroups = []): void
+    {
+        if (count($priceGroups) === 0) {
+            $priceGroups = self::PRICE_DEFAULTS;
+        }
+
+        foreach ($priceGroups as $group => $trees) {
+            // Avoid stupid input
+            if (is_int($trees) && strlen($group) < 15) {
+                $usd                       = round($trees * self::USD_PER_TREE);
+                $this->priceGroups[$group] = sprintf('%d trees ≈ $%d', $trees, $usd);
+            }
+        }
+    }
+
+    private function assignTeaser($teaser = []): void
+    {
+        // Avoid stupid input
+        if (count($teaser) === 0 || count($teaser) > 3) {
+            $teaser = self::TEASER_DEFAULT;
+        }
+        if (strlen(implode(PHP_EOL, $teaser)) > 200) {
+            $teaser = self::TEASER_DEFAULT;
+        }
+
+        $this->teaser = $teaser;
     }
 }

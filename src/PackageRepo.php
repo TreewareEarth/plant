@@ -34,7 +34,7 @@ class PackageRepo
                 $treeware[] = new TreewareExtra(
                     $package->getName(),
                     $package->getDescription(),
-                    $extra['treeware']['prices'] ?? [],
+                    $extra['treeware']['priceGroups'] ?? [],
                     $extra['treeware']['teaser'] ?? []
                 );
             }

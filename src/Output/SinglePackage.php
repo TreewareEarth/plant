@@ -35,8 +35,8 @@ class SinglePackage
             $this->io->write("🌳 $line");
         }
 
-        foreach ($this->extra->prices as $key => $price) {
-            $this->io->write("🌳 ⤑ $price ($key)");
+        foreach ($this->extra->priceGroups as $group => $price) {
+            $this->io->write("🌳 ⤑ $price ($group)");
         }
 
         $this->io->write(
