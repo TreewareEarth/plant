@@ -3,8 +3,6 @@
 namespace Treeware\Plant\Command;
 
 use Composer\Plugin\Capability\CommandProvider as CommandProviderCapability;
-use Treeware\Plant\PackageRepo;
-
 
 class Provider implements CommandProviderCapability
 {

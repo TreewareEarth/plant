@@ -9,8 +9,8 @@ use Composer\Plugin\Capability\CommandProvider;
 use Composer\Plugin\Capable;
 use Composer\Plugin\PluginInterface;
 use Composer\Script\ScriptEvents;
-use Treeware\Plant\Command\Provider;
 use Symfony\Component\Console\Input\ArgvInput;
+use Treeware\Plant\Command\Provider;
 
 class Plugin implements PluginInterface, EventSubscriberInterface, Capable
 {
@@ -37,7 +37,7 @@ class Plugin implements PluginInterface, EventSubscriberInterface, Capable
     public static function getSubscribedEvents()
     {
         return [
-            ScriptEvents::POST_UPDATE_CMD => 'showBanner'
+            ScriptEvents::POST_UPDATE_CMD => 'showBanner',
         ];
     }
 
@@ -54,7 +54,7 @@ class Plugin implements PluginInterface, EventSubscriberInterface, Capable
     public function activate(Composer $composer, IOInterface $io)
     {
         $this->composer = $composer;
-        $this->io       = $io;
+        $this->io = $io;
     }
 
     public function deactivate(Composer $composer, IOInterface $io)
@@ -67,33 +67,32 @@ class Plugin implements PluginInterface, EventSubscriberInterface, Capable
         // Not implemented
     }
 
-
     public function showBanner(): void
     {
-        $filter   = $this->getFilteredPackages();
-        $repo     = $this->packageRepo ?: new PackageRepo($this->composer);
+        $filter = $this->getFilteredPackages();
+        $repo = $this->packageRepo ?? new PackageRepo($this->composer);
         $packages = $repo->getTreewareMeta();
-        $count    = count($packages);
+        $count = count($packages);
 
         // No treeware packages
-        if (0 === $count) {
+        if ($count === 0) {
             return;
         }
 
         // No filter, full update: tiny hint
-        if (0 === count($filter)) {
+        if (count($filter) === 0) {
             $this->io->write(PHP_EOL);
-            $this->io->write("🌳 <options=bold>{$count} packages you are using with a Treeware licence</>");
-            $this->io->write("🌳 use the `composer treeware` command to find out more!");
+            $this->io->write(
+                "🌳 <options=bold>{$count} packages you are using with a Treeware licence</>"
+            );
+            $this->io->write('🌳 use the `composer treeware` command to find out more!');
             return;
         }
 
         // update/require: full info
         foreach ($packages as $package) {
-
-            if (in_array($package->name, $filter)) {
-
-                $headline  = "<options=bold>Treeware licence of {$package->name} - {$package->description}</>";
+            if (in_array($package->name, $filter, true)) {
+                $headline = "<options=bold>Treeware licence of {$package->name} - {$package->description}</>";
                 $underline = str_repeat('-', strlen($headline));
                 $this->io->write(PHP_EOL);
                 $this->io->write("🌳 $headline");
@@ -107,24 +106,25 @@ class Plugin implements PluginInterface, EventSubscriberInterface, Capable
                     $this->io->write("🌳 ⤑ $price ($key)");
                 }
 
-                $this->io->write("🌳 Donate using this link: <options=underscore>{$package->url}</>" . PHP_EOL);
+                $this->io->write(
+                    "🌳 Donate using this link: <options=underscore>{$package->url}</>" . PHP_EOL
+                );
             }
-
         }
     }
 
     /**
-     * A list of packages passed to the require or update command
-     * If the list is empty, no filter was applied (full update)
+     * A list of packages passed to the require or update command If the list is empty, no filter was applied (full
+     * update)
      */
     private function getFilteredPackages(): array
     {
         foreach (debug_backtrace() as $trace) {
-            if (!isset($trace['object']) || !isset($trace['args'][0])) {
+            if (! isset($trace['object']) || ! isset($trace['args'][0])) {
                 continue;
             }
 
-            if (!$trace['args'][0] instanceof ArgvInput) {
+            if (! $trace['args'][0] instanceof ArgvInput) {
                 continue;
             }
 
@@ -136,5 +136,4 @@ class Plugin implements PluginInterface, EventSubscriberInterface, Capable
 
         return [];
     }
-
 }

@@ -1,17 +1,30 @@
 {
   "name": "treeware/plant",
   "type": "composer-plugin",
+  "description": "",
   "require": {
     "composer-plugin-api": "^1.0|^2.0"
   },
   "require-dev": {
     "composer/composer": "^1.0|^2.0",
-    "symfony/console": "*"
+    "symfony/console": "^5.1",
+    "phpstan/phpstan": "^0.12",
+    "pestphp/pest": "^1.0",
+    "spatie/pest-plugin-snapshots": "^1.0",
+    "symplify/easy-coding-standard": "^9.2"
   },
+
+
   "autoload": {
     "psr-4": {
       "Treeware\\Plant\\": "src/"
     }
+  },
+  "scripts": {
+    "stan": "phpstan analyse src --level=5",
+    "ecs": "vendor/bin/ecs",
+    "fix": "vendor/bin/ecs --fix",
+    "test": "vendor/bin/pest"
   },
   "extra": {
     "class": "Treeware\\Plant\\Plugin"

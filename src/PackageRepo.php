@@ -2,7 +2,6 @@
 
 namespace Treeware\Plant;
 
-
 use Composer\Composer;
 use Composer\Repository\InstalledRepositoryInterface;
 
@@ -23,14 +22,16 @@ class PackageRepo
      */
     public function getTreewareMeta()
     {
-        $packages = [];
+        $treeware = [];
 
-        foreach ($this->repo->getPackages() as $package) {
+        /** @var \Composer\Package\CompletePackageInterface[] $installedPackages */
+        $installedPackages = $this->repo->getPackages();
 
+        foreach ($installedPackages as $package) {
             $extra = $package->getExtra();
 
             if (isset($extra['treeware'])) {
-                $packages[] = new TreewareExtra(
+                $treeware[] = new TreewareExtra(
                     $package->getName(),
                     $package->getDescription(),
                     $extra['treeware']['prices'] ?? [],
@@ -39,7 +40,6 @@ class PackageRepo
             }
         }
 
-        return $packages;
+        return $treeware;
     }
-
 }
