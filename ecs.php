@@ -21,7 +21,6 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $parameters->set(Option::SETS, [
         SetList::COMMON,
         SetList::CLEAN_CODE,
-        SetList::DEAD_CODE,
         SetList::PSR_12,
         SetList::SYMPLIFY,
         SetList::NAMESPACES,

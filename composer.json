@@ -13,18 +13,22 @@
     "spatie/pest-plugin-snapshots": "^1.0",
     "symplify/easy-coding-standard": "^9.2"
   },
-
-
   "autoload": {
     "psr-4": {
       "Treeware\\Plant\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Tests\\": "tests/"
     }
   },
   "scripts": {
     "stan": "phpstan analyse src --level=5",
     "ecs": "vendor/bin/ecs",
     "fix": "vendor/bin/ecs --fix",
-    "test": "vendor/bin/pest"
+    "test": "vendor/bin/pest",
+    "test-reset": "vendor/bin/pest -d --update-snapshots"
   },
   "extra": {
     "class": "Treeware\\Plant\\Plugin"

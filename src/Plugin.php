@@ -11,6 +11,8 @@ use Composer\Plugin\PluginInterface;
 use Composer\Script\ScriptEvents;
 use Symfony\Component\Console\Input\ArgvInput;
 use Treeware\Plant\Command\Provider;
+use Treeware\Plant\Output\SinglePackage;
+use Treeware\Plant\Output\Summary;
 
 class Plugin implements PluginInterface, EventSubscriberInterface, Capable
 {
@@ -51,7 +53,7 @@ class Plugin implements PluginInterface, EventSubscriberInterface, Capable
     /**
      * Initialize Composer plugin
      */
-    public function activate(Composer $composer, IOInterface $io)
+    public function activate(Composer $composer, IOInterface $io): void
     {
         $this->composer = $composer;
         $this->io = $io;
@@ -81,34 +83,14 @@ class Plugin implements PluginInterface, EventSubscriberInterface, Capable
 
         // No filter, full update: tiny hint
         if (count($filter) === 0) {
-            $this->io->write(PHP_EOL);
-            $this->io->write(
-                "🌳 <options=bold>{$count} packages you are using with a Treeware licence</>"
-            );
-            $this->io->write('🌳 use the `composer treeware` command to find out more!');
+            (new Summary($this->io))->show($count);
             return;
         }
 
         // update/require: full info
         foreach ($packages as $package) {
             if (in_array($package->name, $filter, true)) {
-                $headline = "<options=bold>Treeware licence of {$package->name} - {$package->description}</>";
-                $underline = str_repeat('-', strlen($headline));
-                $this->io->write(PHP_EOL);
-                $this->io->write("🌳 $headline");
-                $this->io->write("🌳 $underline");
-
-                foreach ($package->teaser as $line) {
-                    $this->io->write("🌳 $line");
-                }
-
-                foreach ($package->prices as $key => $price) {
-                    $this->io->write("🌳 ⤑ $price ($key)");
-                }
-
-                $this->io->write(
-                    "🌳 Donate using this link: <options=underscore>{$package->url}</>" . PHP_EOL
-                );
+                (new SinglePackage($this->io, $package))->show();
             }
         }
     }
