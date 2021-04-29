@@ -26,7 +26,11 @@ class PackageList
     {
         foreach ($this->packages as $package) {
             $this->output->writeln("🌳 {$package->name}");
-            $this->output->writeln("⤑ Description: {$package->description}");
+
+            foreach ($package->priceGroups as $group => $price) {
+                $this->output->writeln("   $price ($group)");
+            }
+
             $this->output->writeln("⤑ Donate: {$package->url}");
 
             if ($package->treeCount > 0) {

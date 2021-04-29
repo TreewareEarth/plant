@@ -1,10 +1,14 @@
 🌳 tester/hot-toolbox
-⤑ Description: Hot stuff in a box
+   100 trees ≈ $17 (useful)
+   250 trees ≈ $42 (important)
+   500 trees ≈ $84 (critical)
 ⤑ Donate: https://plant.treeware.earth/tester/hot-toolbox
 ⤑ No trees donated so far 😢
 
 🌳 tester/cool-toolbox
-⤑ Description: Cool stuff in a box
+   100 trees ≈ $17 (useful)
+   250 trees ≈ $42 (important)
+   500 trees ≈ $84 (critical)
 ⤑ Donate: https://plant.treeware.earth/tester/cool-toolbox
 ⤑ Tree count: 500
 

@@ -15,32 +15,32 @@ class SinglePackage
     /**
      * @var \Treeware\Plant\Package
      */
-    protected $extra;
+    protected $package;
 
-    public function __construct(IOInterface $io, Package $extra)
+    public function __construct(IOInterface $io, Package $package)
     {
         $this->io = $io;
-        $this->extra = $extra;
+        $this->package = $package;
     }
 
     public function show(): void
     {
-        $headline = "<options=bold>Treeware licence of {$this->extra->name} - {$this->extra->description}</>";
+        $headline = "<options=bold>Treeware licence of {$this->package->name} - {$this->package->description}</>";
         $underline = str_repeat('-', strlen($headline));
         $this->io->write(PHP_EOL);
         $this->io->write("🌳 $headline");
         $this->io->write("🌳 $underline");
 
-        foreach ($this->extra->teaser as $line) {
+        foreach ($this->package->teaser as $line) {
             $this->io->write("🌳 $line");
         }
 
-        foreach ($this->extra->priceGroups as $group => $price) {
+        foreach ($this->package->priceGroups as $group => $price) {
             $this->io->write("🌳 ⤑ $price ($group)");
         }
 
         $this->io->write(
-            "🌳 Donate using this link: <options=underscore>{$this->extra->url}</>" . PHP_EOL
+            "🌳 Donate using this link: <options=underscore>{$this->package->url}</>" . PHP_EOL
         );
     }
 }
