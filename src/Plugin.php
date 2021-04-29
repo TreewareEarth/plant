@@ -72,6 +72,12 @@ class Plugin implements PluginInterface, EventSubscriberInterface, Capable
 
     public function showBanner(): void
     {
+        // Plugin classes do not exist after removing
+        // but Composer 1 triggers the event: stop here
+        if (! class_exists('Treeware\Plant\PackageRepo')) {
+            return;
+        }
+
         $filter = $this->getFilteredPackages();
         $repo = $this->packageRepo ?? new PackageRepo($this->composer, new PackageStatsClient());
         $packages = $repo->getTreeware();

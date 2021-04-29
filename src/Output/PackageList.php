@@ -32,7 +32,7 @@ class PackageList
             if ($package->treeCount > 0) {
                 $this->output->writeln("⤑ Tree count: {$package->treeCount}");
             } else {
-                $this->output->writeln("⤑ No trees donated so far 😢");
+                $this->output->writeln('⤑ No trees donated so far 😢');
             }
 
             $this->output->write(PHP_EOL);
