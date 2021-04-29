@@ -12,6 +12,9 @@ use Treeware\Plant\PackageStatsClient;
 
 class TreewareCommand extends BaseCommand
 {
+    public const SUCCESS = 0;
+    public const FAILURE = 1;
+
     public function execute(InputInterface $input, OutputInterface $output): int
     {
         $repo = new PackageRepo($this->getComposer(), new PackageStatsClient());
@@ -19,7 +22,7 @@ class TreewareCommand extends BaseCommand
 
         (new PackageList($output, $packages))->show();
 
-        return Command::SUCCESS;
+        return self::SUCCESS;
     }
 
     protected function configure(): void
