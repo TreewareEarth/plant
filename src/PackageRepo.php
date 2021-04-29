@@ -37,7 +37,7 @@ class PackageRepo
             $extra = $package->getExtra();
 
             if (isset($extra['treeware'])) {
-                $treeware[] = new Package(
+                $treeware[$package->getName()] = new Package(
                     $package->getName(),
                     $package->getDescription(),
                     $extra['treeware']['priceGroups'] ?? [],
