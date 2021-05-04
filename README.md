@@ -18,7 +18,6 @@ $ composer require treeware/plant
 
 Add an `extra` attribute to your package composer.json that contains at least an empty `treeware` object:
 
-Add an empty treeware extra object 
 ```json
 {
     "extra": {
