@@ -18,7 +18,7 @@ $ composer require treeware/plant
 
 Add an `extra` attribute to your package composer.json that contains at least an empty `treeware` object:
 
-A empty treeware extra object 
+Add an empty treeware extra object 
 ```json
 {
     "extra": {
@@ -27,7 +27,13 @@ A empty treeware extra object
 }
 ```
 
-To change the default output, add your own `teaser` and `priceGroup`:
+Or use this handy shortcut:
+
+```sh
+composer config extra.treeware --json {}
+```
+
+To change the default output, add your own `teaser` and `priceGroup` properties:
 ```json
 {
     "extra": {
@@ -48,7 +54,7 @@ To change the default output, add your own `teaser` and `priceGroup`:
 
 
 
-## Example
+## Example output
 
 ---
 
