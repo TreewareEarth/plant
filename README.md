@@ -1,23 +1,19 @@
-# WIP
-
-⚡️ This package is not ready to use. 
-
-
 # What is this?
 
-It's a bit like https://github.com/symfony/thanks, but it tries to tackle a bigger problem! **The climate crisis.** 
+It's a bit like [symfony/thanks](https://github.com/symfony/thanks), but it tries to tackle a bigger problem! **The climate crisis.** 
 
 Open Source can have positive impact on it. With Treeware every donation is a motivation to work on Open Source code. 
 
-The Treeware idea is great, but it's not very visible. This package tries to solve it.
+The [Treeware idea](https://treeware.earth/about) is great, but it's not very visible. This package tries to solve it.
 
 
 Install
 ---
 
-Install this as any other (dev) Composer package:
+Add this package as dependency to your package:
+
 ```sh
-$ composer require --dev treeware/plant
+$ composer require treeware/plant
 ```
 
 Add an `extra` attribute to your package composer.json that contains at least an empty `treeware` object:
@@ -56,7 +52,7 @@ To change the default output, add your own `teaser` and `priceGroup`:
 
 ---
 
-When others install or update your package using composer, a tiny reminder pops up.
+When others require or update your package using composer, a tiny reminder pops up.
 
 ```sh
 
@@ -78,7 +74,6 @@ Generating autoload files
 🌳 ⤑ 250 trees ≈ $42 (important)
 🌳 ⤑ 500 trees ≈ $84 (critical)
 🌳 Donate using this link: https://plant.treeware.earth/this/fancy-package
-
 
 ```
 
